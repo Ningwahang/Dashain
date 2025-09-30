@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fireworks Display</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    #fireworks {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+.firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: explode 1s ease-out;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(10);
+        opacity: 0;
+      }
+    }
+
+    #greeting {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      font-weight: bold;
+      color: transparent;
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-align: center;
+      z-index: 1;
+      display: none;
+    }
+
+    #credit {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 1rem;
+      color: yellow;
+      display: none;
+    }
+
+    #button {
+      background-color: dodgerblue;
+      color: white;
+      font-weight: bold;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 50px; /* Oval shape */
+      cursor: pointer;
+      font-size: 1.5rem;
+      z-index: 2;
+    }
+
+    #button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <button id="button">TOUCH ME</button>
+  <div id="fireworks"></div>
+  <div id="greeting">WISHING YOU HAPPY DASHAIN 2082</div>
+  <div id="credit">from ningwa</div>
+
+  <script>
+    const button = document.getElementById('button');
+    const fireworksContainer = document.getElementById('fireworks');
+    const greeting = document.getElementById('greeting');
+    const credit = document.getElementById('credit');
+
+    button.addEventListener('click', () => {
+      // Display fireworks continuously for 2 seconds
+      const fireworksInterval = setInterval(() => {
+        for (let i = 0; i < 20; i++) {
+          const firework = document.createElement('div');
+          firework.classList.add('firework');
+          firework.style.left = `${Math.random() * 100}%`;
+          firework.style.top = `${Math.random() * 100}%`;
+          firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          fireworksContainer.appendChild(firework);
+
+          setTimeout(() => {
+            firework.remove();
+          }, 1000);
+        }
+      }, 200);
+
+      // Stop fireworks after 2 seconds
+      setTimeout(() => {
+        clearInterval(fireworksInterval);
+      }, 2000);
+
+      // Hide button
+      button.style.display = 'none';
+
+      // Show greeting and credit after 2 seconds
+      setTimeout(() => {
+        greeting.style.display = 'block';
+        credit.style.display = 'block';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
